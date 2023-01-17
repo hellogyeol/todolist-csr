@@ -22,8 +22,17 @@
 
       todoList.forEach(todo => {
         const li = document.createElement('li');
-        li.innerText = todo.content;
+        const span = document.createElement('span');
+        const deleteBtn = document.createElement('button');
+        span.innerText = todo.content;
+        deleteBtn.innerText = 'X';
+        li.append(span, deleteBtn);
         ul.append(li);
+
+        deleteBtn.addEventListener('click', event => {
+          const selected = event.target.parentElement.children[0];
+          console.log(selected);
+        });
       });
     }
     get();
