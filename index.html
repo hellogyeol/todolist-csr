@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -8,13 +8,18 @@
 </head>
 <body>
   <h1>CSR Page</h1>
-  <form action="/todolist" method="post">
+  <form action="/todolist" method="post" class="form">
     <input type="text" name="content" autofocus required>
   </form>
   <ul class="ul"></ul>
 
   <script>
     const ul = document.querySelector('.ul');
+    const form = document.querySelector('.form');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      get();
+    })
 
     async function get() {
       const res = await fetch('/todolist');
@@ -36,6 +41,41 @@
       });
     }
     get();
+  </script>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>CSR Page</h1>
+  <span>0</span>
+  <button class="btn"></button>
+
+  <script>
+    // async function get() {
+    //   const res = await fetch('/todolist');
+    //   const todoList = await res.json();
+
+    //   todoList.forEach(todo => {
+    //     const li = document.createElement('li');
+    //     const span = document.createElement('span');
+    //     const deleteBtn = document.createElement('button');
+    //     span.innerText = todo.content;
+    //     deleteBtn.innerText = 'X';
+    //     li.append(span, deleteBtn);
+    //     ul.append(li);
+    //   });
+    // }
+    // get();
   </script>
 </body>
 </html>

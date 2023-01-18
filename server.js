@@ -32,7 +32,9 @@ app.post('/todolist', (req, res) => {
     const col = client.db('csrDb').collection('csrCol');
     const content = req.body.content;
     await col.insertOne({
-      content: content
+      id: String(Date.now()),
+      content: content,
+      done: false
     });
     const todoList = await col.find({}).toArray();
     console.log(todoList);
