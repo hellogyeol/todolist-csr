@@ -7,25 +7,20 @@
   <title>Document</title>
 </head>
 <body>
-  <h1>Index</h1>
-  <button class="btn">btn</button>
-  <span class="span">before</span>
-  <form class="form">
-    <input type="text">
+  <form class="form" onsubmit="return false">
+    <input type="text" name="asdf">
   </form>
 
+
   <script>
-    const span = document.querySelector('.span')
-    const btn = document.querySelector('.btn')
     const form = document.querySelector('.form')
-    btn.addEventListener('click', async () => {
-      const res = await fetch('/test');
-      const str = await res.text();
-      span.innerText = 'after'
-    })
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      console.log(1)
+    form.addEventListener('submit', async () => {
+      const res = await fetch('/test', {
+        method: 'post',
+        body: 'asdf'
+      })
+      const test = await res.text()
+      console.log(test)
     })
   </script>
 </body>
