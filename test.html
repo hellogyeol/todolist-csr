@@ -7,21 +7,32 @@
   <title>Document</title>
 </head>
 <body>
-  <form class="form" onsubmit="return false">
-    <input type="text" name="asdf">
-  </form>
-
-
+  <!-- <form action="/test" method="post" class="form">
+    <input type="text">
+  </form> -->
+  <input type="text" class="input">
+  <button type="submit" class="btn">submit</button>
+  
   <script>
     const form = document.querySelector('.form')
-    form.addEventListener('submit', async () => {
-      const res = await fetch('/test', {
+    const input = document.querySelector('.input')
+    const btn = document.querySelector('.btn')
+    btn.addEventListener('click', async () => {
+      await fetch('/test', {
         method: 'post',
-        body: 'asdf'
+        body: 'asdfasdf'
       })
-      const test = await res.text()
-      console.log(test)
     })
+    // form.addEventListener('submit', async e => {
+    //   e.preventDefault()
+    //   await fetch('/test', {
+    //     headers: {
+    //       'accept': 'application/json'
+    //     },
+    //     method: 'post',
+    //     body: {'test':'test'}
+    //   })
+    // })
   </script>
 </body>
 </html>

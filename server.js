@@ -44,6 +44,21 @@ app.post('/todolist', (req, res) => {
   res.redirect('/');
 });
 
+
+app.get('/test', (req, res) => {
+  res.sendFile(`${__dirname}/test.html`)
+})
+app.post('/test', (req, res) => {
+  console.log(req.body)
+  res.send('post test')
+})
+
+
+
+
+
+
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
