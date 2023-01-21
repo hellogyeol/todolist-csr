@@ -7,18 +7,17 @@
   <title>Document</title>
 </head>
 <body>
-  <!-- <form action="/test" method="post" class="form">
-    <input type="text">
-  </form> -->
   <input type="text" class="input">
   <button type="submit" class="btn">submit</button>
   
   <script>
-    const form = document.querySelector('.form')
     const input = document.querySelector('.input')
     const btn = document.querySelector('.btn')
     btn.addEventListener('click', async () => {
       await fetch('/test', {
+        headers: {
+          'content-type': 'application.json'
+        },
         method: 'post',
         body: 'asdfasdf'
       })
