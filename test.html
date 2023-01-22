@@ -8,30 +8,27 @@
 </head>
 <body>
   <input type="text" class="input">
-  <button type="submit" class="btn">submit</button>
-  
+  <button type="button" class="btn">submit</button>
+
+
   <script>
     const input = document.querySelector('.input')
     const btn = document.querySelector('.btn')
     btn.addEventListener('click', async () => {
-      await fetch('/test', {
-        headers: {
-          'content-type': 'application.json'
-        },
+      console.log('clicked')
+      const res = await fetch('/test', {
         method: 'post',
-        body: 'asdfasdf'
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify({
+          title: 'random string'
+        })
       })
+      const str = await res.text()
+      console.log(str)
     })
-    // form.addEventListener('submit', async e => {
-    //   e.preventDefault()
-    //   await fetch('/test', {
-    //     headers: {
-    //       'accept': 'application/json'
-    //     },
-    //     method: 'post',
-    //     body: {'test':'test'}
-    //   })
-    // })
+    
   </script>
 </body>
 </html>

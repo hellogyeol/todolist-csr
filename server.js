@@ -50,7 +50,7 @@ app.get('/test', (req, res) => {
 })
 app.post('/test', (req, res) => {
   console.log(req.body)
-  res.send('post test')
+  res.send('server message')
 })
 
 
