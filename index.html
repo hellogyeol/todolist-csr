@@ -7,26 +7,44 @@
   <title>Document</title>
 </head>
 <body>
-  <h3>test</h3>
-  <form action="/test" method="post" class="form">
-    <input type="text">
+  <h3>List</h3>
+  <form action="/list" method="post" class="form">
+    <input type="text" class="input" required>
   </form>
-  
+  <ul class="ul"></ul>
 
   
   <script>
     const form = document.querySelector('.form')
+    const input = document.querySelector('.input')
+    const ul = document.querySelector('.ul')
+
+    getList()
+
+    async function getList() {
+      const res = await fetch('/list')
+      const list = await res.json()
+      ul.innerHTML = ''
+      list.forEach(todo => {
+        const li = document.createElement('li')
+        const span = document.createElement('span')
+        span.innerText = todo.content
+        li.append(span)
+        ul.append(li)
+      })
+    }
+
     form.addEventListener('submit', async e => {
       e.preventDefault()
-      const res = await fetch('/test', {
+      await fetch('/list', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
         },
-        body: JSON.stringify({wow: 'wow!!'})
+        body: JSON.stringify({content: input.value})
       })
-      const data = await res.text()
-      console.log(data)
+      input.value = ''
+      getList()
     })
   </script>
 </body>
