@@ -7,6 +7,7 @@ const { MongoClient } = require("mongodb");
 const url = process.env.DB_URL;
 const client = new MongoClient(url);
 
+app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
@@ -22,7 +23,6 @@ app.get('/list', (req, res) => {
     // await col.deleteMany({})
     const todoList = await col.find({}).toArray();
     console.log(todoList);
-
     res.send(todoList);
   }
 });
@@ -32,16 +32,13 @@ app.post('/list', (req, res) => {
   async function postList() {
     await client.connect();
     const col = client.db('csrDb').collection('csrCol');
-
     await col.insertOne({
       id: String(Date.now()),
       content: req.body.content,
       done: false
     })
-
     const todoList = await col.find({}).toArray();
     console.log(todoList);
-
     res.send(todoList);
   }
 });
