@@ -32,9 +32,23 @@ async function getList() {
   list.forEach(todo => {
     const li = document.createElement('li');
     const span = document.createElement('span');
+    const deleteBtn = document.createElement('button');
+    deleteBtn.innerText = 'X';
     span.innerText = todo.content;
     li.id = todo.id;
-    li.append(span);
+    li.append(span, deleteBtn);
     ul.append(li);
+
+    deleteBtn.addEventListener('click', async event => {
+      const liId = event.target.parentElement.id;
+      await fetch('/todo', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify({id: liId})
+      });
+      getList();
+    });
   });
 }

@@ -53,6 +53,17 @@ app.delete('/list', (req, res) => {
   }
 });
 
+app.delete('/todo', (req, res) => {
+  deleteTodo();
+  async function deleteTodo() {
+    await client.connect();
+    const col = client.db('csrDb').collection('csrCol');
+    await col.deleteOne({id: req.body.id});
+    const todoList = await col.find({}).toArray();
+    res.send(todoList);
+  }
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
