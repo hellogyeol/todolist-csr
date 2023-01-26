@@ -11,10 +11,12 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+// HTML 템플릿
 app.get('/', (req, res) => {
   res.sendFile(`${__dirname}/index.html`);
 });
 
+// List 전체 조회
 app.get('/list', (req, res) => {
   getList();
   async function getList() {
@@ -27,7 +29,20 @@ app.get('/list', (req, res) => {
   }
 });
 
-app.post('/list', (req, res) => {
+// List 전체 삭제
+app.delete('/list', (req, res) => {
+  clearList();
+  async function clearList() {
+    await client.connect();
+    const col = client.db('csrDb').collection('csrCol');
+    await col.deleteMany({})
+    const todoList = await col.find({}).toArray();
+    res.send(todoList);
+  }
+});
+
+// 단일 To-Do 추가
+app.post('/todo', (req, res) => {
   postList();
   async function postList() {
     await client.connect();
@@ -42,17 +57,7 @@ app.post('/list', (req, res) => {
   }
 });
 
-app.delete('/list', (req, res) => {
-  clearList();
-  async function clearList() {
-    await client.connect();
-    const col = client.db('csrDb').collection('csrCol');
-    await col.deleteMany({})
-    const todoList = await col.find({}).toArray();
-    res.send(todoList);
-  }
-});
-
+// 단일 To-Do 삭제
 app.delete('/todo', (req, res) => {
   deleteTodo();
   async function deleteTodo() {

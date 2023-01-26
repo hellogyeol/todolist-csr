@@ -7,7 +7,7 @@ getList();
 
 form.addEventListener('submit', async event => {
   event.preventDefault();
-  await fetch('/list', {
+  await fetch('/todo', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8'
