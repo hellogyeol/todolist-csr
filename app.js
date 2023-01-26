@@ -20,8 +20,8 @@ app.get('/list', (req, res) => {
   async function getList() {
     await client.connect();
     const col = client.db('csrDb').collection('csrCol');
-    // await col.deleteMany({})
     const todoList = await col.find({}).toArray();
+    console.log('*********************************************************');
     console.log(todoList);
     res.send(todoList);
   }
@@ -38,7 +38,17 @@ app.post('/list', (req, res) => {
       done: false
     })
     const todoList = await col.find({}).toArray();
-    console.log(todoList);
+    res.send(todoList);
+  }
+});
+
+app.delete('/list', (req, res) => {
+  clearList();
+  async function clearList() {
+    await client.connect();
+    const col = client.db('csrDb').collection('csrCol');
+    await col.deleteMany({})
+    const todoList = await col.find({}).toArray();
     res.send(todoList);
   }
 });
