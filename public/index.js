@@ -3,8 +3,10 @@ const input = document.querySelector('.input');
 const ul = document.querySelector('.ul');
 const clearBtn = document.querySelector('.clear-btn');
 
+// 전체 목록 조회
 getList();
 
+// To-Do 생성
 form.addEventListener('submit', async event => {
   event.preventDefault();
   await fetch('/todo', {
@@ -18,6 +20,7 @@ form.addEventListener('submit', async event => {
   getList();
 });
 
+// 전체 목록 삭제
 clearBtn.addEventListener('click', async () => {
   await fetch('/list', {
     method: 'DELETE'
@@ -39,6 +42,7 @@ async function getList() {
     li.append(span, deleteBtn);
     ul.append(li);
 
+    // To-Do 삭제
     deleteBtn.addEventListener('click', async event => {
       const liId = event.target.parentElement.id;
       await fetch('/todo', {
