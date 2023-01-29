@@ -3,7 +3,6 @@ const input = document.querySelector('.input');
 const ul = document.querySelector('.ul');
 const clearBtn = document.querySelector('.clear-btn');
 
-// 전체 목록 조회
 getList();
 
 // To-Do 생성
@@ -28,19 +27,33 @@ clearBtn.addEventListener('click', async () => {
   getList();
 });
 
+// 전체 목록 렌더링
 async function getList() {
   const res = await fetch('/list');
   const list = await res.json();
+
   ul.innerHTML = '';
   list.forEach(todo => {
     const li = document.createElement('li');
     const span = document.createElement('span');
     const deleteBtn = document.createElement('button');
+    const doneBox = document.createElement('input');
+
+    doneBox.type = 'checkbox';
     deleteBtn.innerText = 'X';
     span.innerText = todo.content;
     li.id = todo.id;
-    li.append(span, deleteBtn);
+    li.append(doneBox, span, deleteBtn);
     ul.append(li);
+
+    if (todo.done === true) {
+      doneBox.checked = true;
+      span.style.color = 'red';
+    }
+
+    doneBox.addEventListener('click', () => {
+      console.log('clicked')
+    });
 
     // To-Do 삭제
     deleteBtn.addEventListener('click', async event => {
