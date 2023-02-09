@@ -69,6 +69,22 @@ app.delete('/todo', (req, res) => {
   }
 });
 
+
+
+app.get('/done', (req, res) => {
+  doneTodo();
+  async function doneTodo() {
+    await client.connect();
+    const col = client.db('csrDb').collection('csrCol');
+    await col.updateOne({id: req.body.id}, {done: true});
+    const todoList = await col.find({}).toArray();
+    res.send(todoList);
+  }
+});
+
+
+
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

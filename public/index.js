@@ -51,8 +51,9 @@ async function getList() {
       span.style.color = 'red';
     }
 
-    doneBox.addEventListener('click', () => {
-      console.log('clicked')
+    doneBox.addEventListener('click', async () => {
+      console.log('clicked');
+      await fetch('/done');
     });
 
     // To-Do 삭제
